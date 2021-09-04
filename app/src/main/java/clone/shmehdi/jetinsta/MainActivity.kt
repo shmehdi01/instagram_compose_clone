@@ -35,16 +35,14 @@ class MainActivity : ComponentActivity() {
     JetInstaTheme() {
         // A surface container using the 'background' color from the theme
         Surface(color = if (isSystemInDarkTheme()) Black else White) {
-            Scaffold(
-                topBar = {
-                    InstaLogoHeader()
-                },
+            Scaffold (
                 bottomBar = {
                     AppBottomNavigation(navController)
                 }
             ) {
-                MainNavigation(navController)
+                MainNavigation(navController = navController)
             }
+
         }
     }
 }
