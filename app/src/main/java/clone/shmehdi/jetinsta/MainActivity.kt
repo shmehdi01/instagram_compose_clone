@@ -14,10 +14,14 @@ import androidx.navigation.compose.rememberNavController
 import clone.shmehdi.jetinsta.ui.components.*
 import clone.shmehdi.jetinsta.ui.components.items.PostItem
 import clone.shmehdi.jetinsta.ui.screens.*
+import clone.shmehdi.jetinsta.ui.screens.message.MessageScreen
 import clone.shmehdi.jetinsta.ui.theme.Black
 import clone.shmehdi.jetinsta.ui.theme.JetInstaTheme
 import clone.shmehdi.jetinsta.ui.theme.White
 import clone.shmehdi.jetinsta.vo.Routes
+import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.pager.HorizontalPager
+import com.google.accompanist.pager.rememberPagerState
 
 
 class MainActivity : ComponentActivity() {
@@ -29,8 +33,10 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@OptIn(ExperimentalPagerApi::class)
 @Composable fun InstaApp() {
     val navController = rememberNavController()
+    val pagerState = rememberPagerState(pageCount = 2)
 
     JetInstaTheme() {
         // A surface container using the 'background' color from the theme
@@ -40,7 +46,15 @@ class MainActivity : ComponentActivity() {
                     AppBottomNavigation(navController)
                 }
             ) {
-                MainNavigation(navController = navController)
+                HorizontalPager(state = pagerState ) {
+                    when (pagerState.currentPage) {
+                        0 -> MainNavigation(navController = navController)
+                        1 -> MessageScreen()
+                    }
+
+
+
+                }
             }
 
         }
