@@ -46,15 +46,18 @@ class MainActivity : ComponentActivity() {
                     AppBottomNavigation(navController)
                 }
             ) {
-                HorizontalPager(state = pagerState ) {
-                    when (pagerState.currentPage) {
-                        0 -> MainNavigation(navController = navController)
-                        1 -> MessageScreen()
+                if (navController.currentBackStackEntry?.destination?.route == Routes.HOME) {
+                    HorizontalPager(state = pagerState ) {
+                        when (pagerState.currentPage) {
+                            0 -> MainNavigation(navController = navController)
+                            1 -> MessageScreen()
+                        }
                     }
-
-
-
                 }
+                else {
+                    MainNavigation(navController = navController)
+                }
+
             }
 
         }
